@@ -75,6 +75,10 @@ public class MinHeap {
         int current = size;
         // FILL IN CODE: bubble up the element as needed, by
         // comparing with the parent; Stop when the parent is smaller than current
+        while(heap[current] < heap[parent(current)]){
+            swap(current, parent(current));
+            current = parent(current);
+        }
     }
 
     /** Print the array that stores the heap */

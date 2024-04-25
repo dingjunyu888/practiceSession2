@@ -79,7 +79,31 @@ public class PrefixTree  {
      */
     private void findWordsThatEndAtInternalNodes(StringBuilder prefix, Node node) {
         // FILL IN CODE
+        //base case
+        if(node == null){
+            return;
+        }
+        //
+        if(node.isWord && !isLeaf(node)){
+            System.out.println(prefix.toString());
+        }
+        for(int i = 0; i < node.children.length; i++){
+            char ch = (char)((int)'a'+i);
+            StringBuilder sb = new StringBuilder();
+            sb.append(prefix);
+            sb.append(ch);
+            findWordsThatEndAtInternalNodes(sb, node.children[i]);
+        }
 
+    }
+
+    private boolean isLeaf (Node node){
+        for(int i = 0; i < node.children.length; i++){
+            if(node.children[i] != null){
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -91,7 +115,15 @@ public class PrefixTree  {
     private int numValidWords(Node node) {
         int count = 0;
         // FILL IN CODE: count the number valid words in the subtree given by node
-
+        if(node == null){
+            return 0;
+        }
+        if(node.isWord){
+            count += 1;
+        }
+        for(int i = 0; i < node.children.length; i++){
+            count += numValidWords(node.children[i]);
+        }
         return count;
     }
 

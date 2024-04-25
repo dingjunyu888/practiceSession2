@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class BinarySearchTree {
 
     /** An inner class representing a node in a binary search tree */
@@ -28,8 +31,18 @@ class BinarySearchTree {
      */
     public static boolean checkIfIdentical(BSTNode root1, BSTNode root2) {
         // FILL IN CODE
-
-        return false;
+        if(root1 == null && root2 == null){
+            return true;
+        }
+        if(root1.data != root2.data){
+            return false;
+        }
+        if(root1 == null || root2 == null){
+            return false;
+        }
+        else{
+            return checkIfIdentical(root1.left, root2.left) && checkIfIdentical(root1.right, root2.right);
+        }
     }
 
     /**
@@ -39,10 +52,23 @@ class BinarySearchTree {
      */
     public int sumLeaves(BSTNode root) {
         // FILL IN CODE
-
-        return 0;
+        if(root == null){
+            return 0;
+        }
+        if(isLeave(root)){
+            return root.data;
+        }else{
+            return sumLeaves(root.left) + sumLeaves(root.right);
+        }
     }
 
+    public boolean isLeave(BSTNode root){
+        if(root.right == null && root.left == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     /**
      * Returns the value of the largest element in the binary search tree
@@ -52,8 +78,13 @@ class BinarySearchTree {
     public int findLargest(BSTNode root) {
         BSTNode current = root;
         // FILL IN CODE: must be iterative
-
-        return 0; // change
+        if(current == null){
+            throw new IllegalArgumentException();
+        }
+        while(current.right != null){
+            current = current.right;
+        }
+        return current.data;
     }
 
     /**
@@ -63,10 +94,20 @@ class BinarySearchTree {
      */
     public int findSecondLargest(BSTNode root) {
         // FILL IN CODE:
-
-        return 0; // change
+        ArrayList<Integer> arr = new ArrayList<>();
+        inorderTravers(root, arr);
+        return arr.get(arr.size() - 2);
     }
 
+    public void inorderTravers(BSTNode root, ArrayList<Integer> arr){
+        if(root == null){
+            return;
+        }
+        inorderTravers(root.left, arr);
+        arr.add(root.data);
+        inorderTravers(root.right, arr);
+//        inorderTravers(root.right, arr);
+    }
     /**
      * Insert a given element into the BST tree
      * @param elem element to insert into the BST tree

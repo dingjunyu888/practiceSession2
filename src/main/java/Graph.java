@@ -42,9 +42,31 @@ public class Graph {
         ArrayList<Integer>  verticesNoIncomingEdges = new ArrayList<>();
         // FILL IN CODE: can go through the adjacency list only once.
         // Can use an additional array of boolean elements
-
-
-        return verticesNoIncomingEdges;
+        ArrayList<Integer> verticesNoOutcomingEdges = new ArrayList<>();
+        boolean[] hasIncoming = new boolean[graph.length];
+        boolean[] hasOutcoming = new boolean[graph.length];
+        for(int i = 0; i < graph.length; i++){
+            Edge temp = graph[i];
+//            while(temp != null){
+//                hasIncoming[temp.neighbor] = true;
+//                temp = temp.next;
+//            }
+            if(temp != null){
+                hasOutcoming[i] = true;
+            }
+        }
+//        for(int j = 0; j < hasIncoming.length; j++){
+//            if(!hasIncoming[j]){
+//                verticesNoIncomingEdges.add(j);
+//            }
+//        }
+        for(int j = 0; j < hasOutcoming.length; j++){
+            if(!hasOutcoming[j]){
+                verticesNoOutcomingEdges.add(j);
+            }
+        }
+//        return verticesNoIncomingEdges;
+        return verticesNoOutcomingEdges;
     }
 
 

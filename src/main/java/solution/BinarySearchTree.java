@@ -32,14 +32,18 @@ class BinarySearchTree {
      * @return
      */
     public static boolean checkIfIdentical(BSTNode root1, BSTNode root2) {
-        if (root1 == null && root2 == null) // both roots are null
+        if(root1 == null && root2 == null){
             return true;
-        else if (root1 == null || root2 == null) // only one root is null
+        }
+        if(root1.data != root2.data){
             return false;
-        else if (root1.data != root2.data) // data at the two roots does not match
+        }
+        if(root1 == null || root2 == null){
             return false;
-        else // compare subtrees (we already checked root1.data == root2.data)
+        }
+        else{
             return checkIfIdentical(root1.left, root2.left) && checkIfIdentical(root1.right, root2.right);
+        }
     }
 
     /**
@@ -48,12 +52,13 @@ class BinarySearchTree {
      * @return sum of leaf values
      */
     public int sumLeaves(BSTNode root) {
-        if (root == null)
+        if(root == null){
             return 0;
-        if (root.left == null && root.right == null)
+        }
+        if(root.left == null && root.right == null){
             return root.data;
-        else
-            return sumLeaves(root.left) + sumLeaves(root.right);
+        }
+        return sumLeaves(root.left) + sumLeaves(root.right);
     }
 
 
@@ -63,13 +68,11 @@ class BinarySearchTree {
      * @return value of the largest element
      */
     public int findLargest(BSTNode root) {
-        BSTNode current = root;
-        if (current == null)
-            throw new IllegalArgumentException();
-        while (current.right != null) {
-            current = current.right;
+        BSTNode curr = root;
+        while(curr.right != null){
+            curr = curr.right;
         }
-        return current.data;
+        return curr.data;
     }
 
     /**
